@@ -1,5 +1,7 @@
 package churimon;
 
+import java.math.BigDecimal;
+
 public class Monster1 {
 	String character;	//種族
 	String trainer;		//トレーナ
@@ -27,4 +29,49 @@ public class Monster1 {
 		this.wazaDmgRate	= "1.0";
 	}
 
+	public String toString(){
+		return	"<フィールド確認>character:" + this.character + "/" +
+				",trainer:" + this.trainer + "/" +
+				",name:" + this.name + "/" +
+				",lv:" + this.lv + "/" +
+				",hp:" + this.hp + "/" +
+				",atk:" + this.atk + "/" +
+				",def:" + this.def + "/" +
+				",spd:" + this.spd +  "/" +
+				",hpMax:" + this.hpMax +  "/" +
+				",wazaNm:" + this.wazaNm +  "/" +
+				",wazaDmgRate:" + this.wazaDmgRate;
+	}
+
+	void levelUp(int upLv) {
+		this.lv = this.lv + (upLv * 1);
+		this.hpMax = this.hpMax + (upLv * 30);
+		this.atk = this.atk + (upLv * 5);
+		this.def = this.def + (upLv * 5);
+		this.spd = this.spd + (upLv * 5);
+		this.hp = this.hpMax;
+	}
+
+	void setWaza(String wazaName,String wazaDamageRate) {
+		// 引数2のバリデーションチェックを行います。
+		if (wazaDamageRate.matches("^[0-9]+¥.[0-9]$")) {
+			this.wazaNm = wazaName;
+			this.wazaDmgRate = wazaDamageRate;
+		}else{
+			System.out.println("[ERROR]わざの設定に失敗しました");
+		};
+	}
+
+	String getStatus() {
+		return "[" + this.name + "lv" + this.lv + "HP" + this.hp + "/" + this.hpMax + "]";
+	}
+
+	int useWaza() {
+		BigDecimal atk = new BigDecimal(this.atk);
+		BigDecimal rate = new BigDecimal(this.wazaDmgRate);
+		BigDecimal dmg;
+		
+		dmg = (atk.multiply(rate));
+		return dmg.intValue();
+	}
 }
