@@ -74,4 +74,9 @@ public class Monster1 {
 		dmg = (atk.multiply(rate));
 		return dmg.intValue();
 	}
+/*	
+	int damaged(int damage) {
+		BigDecimal dmgRt;
+	}
+*/
 }
