@@ -1,0 +1,15 @@
+package churimon;
+
+public class Monster1 {
+	String character;
+	String trainer;
+	String name;
+	int lv;
+	int hp;
+	int atk;
+	int def;
+	int spd;
+	int hpMax;
+	String wazaNm;
+	String wazaDmgRate;
+}
