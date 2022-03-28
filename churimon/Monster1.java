@@ -29,6 +29,8 @@ public class Monster1 {
 		this.wazaDmgRate	= "1.0";
 	}
 
+	//[toStringメソッド]
+	//toStringメソッドのオーバーライドを以下のように実施します。
 	public String toString(){
 		return	"<フィールド確認>character:" + this.character + "/" +
 				",trainer:" + this.trainer + "/" +
@@ -43,6 +45,8 @@ public class Monster1 {
 				",wazaDmgRate:" + this.wazaDmgRate;
 	}
 
+	//[levelUpメソッド]
+	//上昇レベルに従ってステータスを上昇させます。
 	void levelUp(int upLv) {
 		this.lv = this.lv + (upLv * 1);
 		this.hpMax = this.hpMax + (upLv * 30);
@@ -52,6 +56,8 @@ public class Monster1 {
 		this.hp = this.hpMax;
 	}
 
+	//[setWazaメソッド]
+	//わざに関する情報を設定します。
 	void setWaza(String wazaName,String wazaDamageRate) {
 		// 引数2のバリデーションチェックを行います。
 		if (wazaDamageRate.matches("^[0-9]+¥.[0-9]$")) {
@@ -62,10 +68,14 @@ public class Monster1 {
 		};
 	}
 
+	//[getStatusメソッド]
+	//ステータスを表示します。
 	String getStatus() {
 		return "[" + this.name + "lv" + this.lv + "HP" + this.hp + "/" + this.hpMax + "]";
 	}
 
+	//[useWazaメソッド]
+	//わざを使用して相手にダメージを与えます。
 	int useWaza() {
 		BigDecimal atk = new BigDecimal(this.atk);
 		BigDecimal rate = new BigDecimal(this.wazaDmgRate);
@@ -74,9 +84,23 @@ public class Monster1 {
 		dmg = (atk.multiply(rate));
 		return dmg.intValue();
 	}
-/*	
+
+	//[damagedメソッド] その１
+	//値渡しされたダメージから実際に受けるダメージを計算し、HPから減算します。
+	//戻り値として実際に受けるダメージを返します。
 	int damaged(int damage) {
 		BigDecimal dmgRt;
+		BigDecimal dmg1 = new BigDecimal(1);
+		BigDecimal dmg120 = new BigDecimal(120);
+		BigDecimal def = new BigDecimal(this.def);
+
+		dmgRt = dmg1.devide(dmg1.add((def.divide(dmg120))));
+		
+		BigDecimal rtDmg;
+		BigDecimal Bddamage = new BigDecimal(damage);
+
+		rtDmg = Bddamage.multiply(dmgRt);
+		return rtDmg.intvalue();
 	}
-*/
+
 }
