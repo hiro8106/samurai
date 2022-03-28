@@ -59,7 +59,7 @@ class Ex2_03_1_Referee {
 			System.out.println("なんか変・・・");
 			
 		}
-		System.out.println( "*** 終わりです ***" );
+		System.out.println( "*** 終わり ***" );
 	}
 
 	//getter
