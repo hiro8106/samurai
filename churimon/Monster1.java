@@ -33,16 +33,16 @@ public class Monster1 {
 	//toStringメソッドのオーバーライドを以下のように実施します。
 	public String toString(){
 		return	"<フィールド確認>character:" + this.character + "/" +
-				",trainer:" + this.trainer + "/" +
-				",name:" + this.name + "/" +
-				",lv:" + this.lv + "/" +
-				",hp:" + this.hp + "/" +
-				",atk:" + this.atk + "/" +
-				",def:" + this.def + "/" +
-				",spd:" + this.spd +  "/" +
-				",hpMax:" + this.hpMax +  "/" +
-				",wazaNm:" + this.wazaNm +  "/" +
-				",wazaDmgRate:" + this.wazaDmgRate;
+				"trainer:" + this.trainer + "/" +
+				"name:" + this.name + "/" +
+				"lv:" + this.lv + "/" +
+				"hp:" + this.hp + "/" +
+				"atk:" + this.atk + "/" +
+				"def:" + this.def + "/" +
+				"spd:" + this.spd +  "/" +
+				"hpMax:" + this.hpMax +  "/" +
+				"wazaNm:" + this.wazaNm +  "/" +
+				"wazaDmgRate:" + this.wazaDmgRate;
 	}
 
 	//[levelUpメソッド]
@@ -71,7 +71,7 @@ public class Monster1 {
 	//[getStatusメソッド]
 	//ステータスを表示します。
 	String getStatus() {
-		return "[" + this.name + "lv" + this.lv + "HP" + this.hp + "/" + this.hpMax + "]";
+		return "[" + this.name + ":lv" + this.lv + ":HP" + this.hp + "/" + this.hpMax + "]";
 	}
 
 	//[useWazaメソッド]
@@ -98,7 +98,8 @@ public class Monster1 {
 		BigDecimal dmg120 = new BigDecimal(120);
 		BigDecimal def = new BigDecimal(this.def);
 
-		dmgRt = dmg1.devide( dmg1.add( def.divide(dmg120) ) ,2 ,RoundingMode.DOWN);
+//		dmgRt = dmg1.divide( dmg1.add( def.divide(dmg120) ) , 3 ,BigDecimal.ROUND_DOWN);
+		dmgRt = dmg1.divide( dmg1.add( def.divide(dmg120) ) );
 		
 		//②実際に受けるダメージを下記ルールで求めます。
 		//実際に受けるダメージ：値渡しされたダメージ値×ダメージ減算率
@@ -109,14 +110,14 @@ public class Monster1 {
 		
 		//③HPと受けるダメージを比べ、HP>ダメージであればダメージを差し引いた値
 		//  をHPに代入します。HP<ダメージであればHPに0を代入します。
-		if(this.hp > actDmg) {
-			this.ph = this.hp - actDmg;
-		}else if(this.hp < actDmg) {
-			this.ph = 0;
+		if(this.hp > actDmg.intValue()) {
+			this.hp = this.hp - actDmg.intValue();
+		}else if(this.hp < actDmg.intValue()) {
+			this.hp = 0;
 		};
 
 		//④ 戻り値として実際に受けるダメージの値を返します。
-		
+		return actDmg.intValue();
 	}
 
 }
