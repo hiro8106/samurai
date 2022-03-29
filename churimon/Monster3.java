@@ -32,6 +32,7 @@ public class Monster3 {
 
 	//コンストラクタ2
 	Monster3(String pTrainer, String pName){
+		this();
 		this.trainer		= pTrainer;
 		this.name			= pName;
 	}
@@ -39,7 +40,7 @@ public class Monster3 {
 	//コンストラクタ3
 	Monster3(String pTrainer, String pName, int pLv){
 		this(pTrainer, pName);
-		this.lv	 = pLv;
+		//this.lv	 = pLv;
 		if ( pLv > 1){
 			levelUp(pLv - 1);
 		}
@@ -76,7 +77,7 @@ public class Monster3 {
 	//わざに関する情報を設定します。
 	public void setWaza(String wazaName,String wazaDamageRate) {
 		// 引数2のバリデーションチェックを行います。
-		if (wazaDamageRate.matches("^[0-9]+¥.[0-9]$")) {
+		if (wazaDamageRate.matches("^[0-9]+\\.[0-9]$")) {
 			this.wazaNm      = wazaName;
 			this.wazaDmgRate = wazaDamageRate;
 		}else{
@@ -93,7 +94,7 @@ public class Monster3 {
 	//[useWazaメソッド]
 	//わざを使用して相手にダメージを与えます。
 	public int useWaza() {
-		BigDecimal atk = new BigDecimal(this.atk);
+		BigDecimal atk  = new BigDecimal(this.atk);
 		BigDecimal rate = new BigDecimal(this.wazaDmgRate);
 		BigDecimal dmg;
 		
@@ -101,29 +102,31 @@ public class Monster3 {
 		return dmg.intValue();
 	}
 
- 	//[damagedメソッド] その１
+
+	//[damagedメソッド] その１
 	//値渡しされたダメージから実際に受けるダメージを計算し、HPから減算します。
 	//戻り値として実際に受けるダメージを返します。
 	public int damaged(int damage) {
-		
 		//①ダメージ減算率を下記ルールで求めます。
 		//ダメージ減算率：1 / (1＋ぼうぎょ÷120) ※小数第3位切り捨て
 		//※BigDecimalを使用します。
-		BigDecimal dmgRt;
-		BigDecimal dmg1 = new BigDecimal(1);
+		BigDecimal dmgRt;								//ダメージ減算率
+		BigDecimal dmg1   = new BigDecimal(1);
 		BigDecimal dmg120 = new BigDecimal(120);
-		BigDecimal def = new BigDecimal(this.def);
+		BigDecimal def    = new BigDecimal(this.def);
 
 //		dmgRt = dmg1.divide( dmg1.add( def.divide(dmg120) ) , 3 ,BigDecimal.ROUND_DOWN);
 		dmgRt = dmg1.divide( dmg1.add( def.divide(dmg120) ) );
-		
+		//dmgRt = dmgRt.setScale(2, BigDecimal.ROUND_UP);
+
 		//②実際に受けるダメージを下記ルールで求めます。
 		//実際に受けるダメージ：値渡しされたダメージ値×ダメージ減算率
 		BigDecimal actDmg;
 		BigDecimal Bddamage = new BigDecimal(damage);
 
 		actDmg = Bddamage.multiply(dmgRt);
-		
+
+
 		//③HPと受けるダメージを比べ、HP>ダメージであればダメージを差し引いた値
 		//  をHPに代入します。HP<ダメージであればHPに0を代入します。
 		if(this.hp > actDmg.intValue()) {
@@ -131,6 +134,7 @@ public class Monster3 {
 		}else if(this.hp < actDmg.intValue()) {
 			this.hp = 0;
 		};
+
 
 		//④ 戻り値として実際に受けるダメージの値を返します。
 		return actDmg.intValue();
