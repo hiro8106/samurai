@@ -2,21 +2,21 @@ package churimon;
 
 import java.math.BigDecimal;
 
-public class Monster2 {
-	String character;	//種族
-	String trainer;		//トレーナ
-	String name;		//なまえ
-	int lv;				//レベル
-	int hp;				//HP
-	int atk;			//こうげき
-	int def;			//ぼうぎょ
-	int spd;			//すばやさ
-	int hpMax;			//HP初期値
-	String wazaNm;		//わざ（なまえ）
-	String wazaDmgRate;	//わざ（ダメージ倍率）
-	
+public class Monster3 {
+	private String character;	//種族
+	private String trainer;		//トレーナ
+	private String name;		//なまえ
+	private int lv;				//レベル
+	private int hp;				//HP
+	private int atk;			//こうげき
+	private int def;			//ぼうぎょ
+	private int spd;			//すばやさ
+	private int hpMax;			//HP初期値
+	private String wazaNm;		//わざ（なまえ）
+	private String wazaDmgRate;	//わざ（ダメージ倍率）
+
 	//コンストラクタ1
-	Monster2(){
+	Monster3(){
 		this.character		= "(unknown)";
 		this.trainer		= "(wild)";
 		this.name			= "(noname)";
@@ -31,20 +31,20 @@ public class Monster2 {
 	}
 
 	//コンストラクタ2
-	Monster2(String pTrainer, String pName){
+	Monster3(String pTrainer, String pName){
 		this.trainer		= pTrainer;
 		this.name			= pName;
 	}
 
 	//コンストラクタ3
-	Monster2(String pTrainer, String pName, int pLv){
+	Monster3(String pTrainer, String pName, int pLv){
 		this(pTrainer, pName);
 		this.lv	 = pLv;
 		if ( pLv > 1){
 			levelUp(pLv - 1);
 		}
 	}
-	
+
 	//[toStringメソッド]
 	//toStringメソッドのオーバーライドを以下のように実施します。
 	public String toString(){
@@ -74,7 +74,7 @@ public class Monster2 {
 
 	//[setWazaメソッド]
 	//わざに関する情報を設定します。
-	void setWaza(String wazaName,String wazaDamageRate) {
+	public void setWaza(String wazaName,String wazaDamageRate) {
 		// 引数2のバリデーションチェックを行います。
 		if (wazaDamageRate.matches("^[0-9]+¥.[0-9]$")) {
 			this.wazaNm      = wazaName;
@@ -86,13 +86,13 @@ public class Monster2 {
 
 	//[getStatusメソッド]
 	//ステータスを表示します。
-	String getStatus() {
+	public String getStatus() {
 		return "[" + this.name + ":lv" + this.lv + ":HP" + this.hp + "/" + this.hpMax + "]";
 	}
 
 	//[useWazaメソッド]
 	//わざを使用して相手にダメージを与えます。
-	int useWaza() {
+	public int useWaza() {
 		BigDecimal atk = new BigDecimal(this.atk);
 		BigDecimal rate = new BigDecimal(this.wazaDmgRate);
 		BigDecimal dmg;
@@ -104,7 +104,7 @@ public class Monster2 {
  	//[damagedメソッド] その１
 	//値渡しされたダメージから実際に受けるダメージを計算し、HPから減算します。
 	//戻り値として実際に受けるダメージを返します。
-	int damaged(int damage) {
+	public int damaged(int damage) {
 		
 		//①ダメージ減算率を下記ルールで求めます。
 		//ダメージ減算率：1 / (1＋ぼうぎょ÷120) ※小数第3位切り捨て
@@ -134,6 +134,74 @@ public class Monster2 {
 
 		//④ 戻り値として実際に受けるダメージの値を返します。
 		return actDmg.intValue();
+	}
+
+
+	public String getCharacter() {
+		return character;
+	}
+	public void setCharacter(String character) {
+		this.character = character;
+	}
+	public String getTrainer() {
+		return trainer;
+	}
+	public void setTrainer(String trainer) {
+		this.trainer = trainer;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getLv() {
+		return lv;
+	}
+	public void setLv(int lv) {
+		this.lv = lv;
+	}
+	public int getHp() {
+		return hp;
+	}
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	public int getAtk() {
+		return atk;
+	}
+	public void setAtk(int atk) {
+		this.atk = atk;
+	}
+	public int getDef() {
+		return def;
+	}
+	public void setDef(int def) {
+		this.def = def;
+	}
+	public int getSpd() {
+		return spd;
+	}
+	public void setSpd(int spd) {
+		this.spd = spd;
+	}
+	public int getHpMax() {
+		return hpMax;
+	}
+	public void setHpMax(int hpMax) {
+		this.hpMax = hpMax;
+	}
+	public String getWazaNm() {
+		return wazaNm;
+	}
+	public void setWazaNm(String wazaNm) {
+		this.wazaNm = wazaNm;
+	}
+	public String getWazaDmgRate() {
+		return wazaDmgRate;
+	}
+	public void setWazaDmgRate(String wazaDmgRate) {
+		this.wazaDmgRate = wazaDmgRate;
 	}
 
 }
